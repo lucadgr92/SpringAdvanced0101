@@ -8,13 +8,11 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 @Component
-public class BasicControllerInterceptor implements HandlerInterceptor {
+public class APILoggingInterceptor implements HandlerInterceptor {
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if(request.getRequestURL().toString().contains("/legacy")) {
-            response.setStatus(HttpServletResponse.SC_GONE);
-            return false;
-        }
+       String userAgentHeader = request.getHeader("User-Agent");
+       System.out.println(userAgentHeader);
         return true;
     }
 
@@ -24,4 +22,8 @@ public class BasicControllerInterceptor implements HandlerInterceptor {
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable Exception ex) throws Exception {
     }
 
+/*
+    Ti manca l'interceptor APILoggingInterceptor that prints in the console
+     the requests header In generale i nomi degli interceptor dovrebbero essere
+     allineati a quello che richiede l'esercizio.*/
 }
